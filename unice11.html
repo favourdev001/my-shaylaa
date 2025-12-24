@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birthday E‑Card 🎉</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com">
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function firework() {
+      const x = random(0, canvas.width);
+      const y = random(0, canvas.height / 2);
+      const colors = ['#ff4d4d', '#ffd93d', '#6bcBef', '#c084fc'];
+
+      for (let i = 0; i < 50; i++) {
+        ctx.beginPath();
+        ctx.arc(x, y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+        ctx.fill();
+      }
+    }
+
+    function animateFireworks() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      firework();
+      requestAnimationFrame(animateFireworks);
+    }
+
+    function startParty() {
+      const music = document.getElementById('bgMusic');
+      music.play();
+      animateFireworks();
+    }
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+
+  <!-- Owl Carousel CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #f472b6, #c084fc);
+    }
+
+    #fireworks {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    .balloon {
+      position: fixed;
+      bottom: -150px;
+      width: 60px;
+      height: 80px;
+      background: radial-gradient(circle at 30% 30%, #fff, red);
+      border-radius: 50% 50% 50% 50%;
+      animation: floatUp 10s linear infinite;
+      z-index: 40;
+    }
+
+    .balloon1 { left: 10%; animation-delay: 0s; background-color: #fb7185; }
+    .balloon2 { left: 45%; animation-delay: 3s; background-color: #60a5fa; }
+    .balloon3 { left: 80%; animation-delay: 6s; background-color: #facc15; }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-120vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 overflow-hidden" onclick="startParty()">
+
+  <div class="bg-white max-w-3xl w-full rounded-3xl shadow-2xl overflow-hidden">
+
+    <!-- Header -->
+    <div class="text-center p-6 bg-gradient-to-r from-pink-500 to-purple-600 text-white">
+      <h1 class="text-4xl font-bold">🎂 Happy Birthday! 🎂</h1>
+      <p class="mt-2 text-lg">Wishing you love, laughter & joy</p>
+    </div>
+
+    <!-- Image Carousel -->
+    <div class="p-6">
+      <h2 class="text-2xl font-semibold text-center mb-4">📸 Memories</h2>
+
+      <div class="owl-carousel owl-theme">
+        <img src="eunice1.jpg" class="rounded-xl" />
+        <img src="eunice2.jpg" class="rounded-xl" />
+        <img src="eunice3.jpg" class="rounded-xl" />
+      </div>
+    </div>
+
+    <!-- Video Section -->
+    <div class="p-6 bg-gray-50">
+      <h2 class="text-2xl font-semibold text-center mb-4">🎥 Special Video</h2>
+
+      <div class="aspect-video rounded-xl overflow-hidden shadow-lg">
+        <video controls class="w-full h-full">
+          <source src="eunice_special.mp4" type="video/mp4" />
+          Your browser does not support video.
+        </video>
+      </div>
+    </div>
+
+    <!-- Message -->
+    <div class="p-6 text-center">
+      <p class="text-lg">
+        May this new year bring you success, peace, and everything your heart desires 💖
+      </p>
+      <button id="confettiBtn" class="mt-6 px-6 py-3 bg-pink-500 text-white rounded-full hover:bg-pink-600 transition">
+        🎉 Celebrate 🎉
+      </button>
+        <!-- Background Music -->
+    <audio id="bgMusic" autoplay>
+      <source src="song.mp3" type="audio/mpeg" />
+    </audio>
+
+    <!-- Fireworks Canvas -->
+    <canvas id="fireworks"></canvas>
+
+    <!-- Balloons -->
+    <div class="balloon balloon1"></div>
+    <div class="balloon balloon2"></div>
+    <div class="balloon balloon3"></div>
+
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <!-- Owl Carousel JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+  <!-- JavaScript -->
+  <script>
+    $(document).ready(function(){
+      $('.owl-carousel').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:true,
+        autoplay:true,
+        autoplayTimeout:3000,
+        responsive:{
+          0:{ items:1 },
+          600:{ items:1 },
+          1000:{ items:1 }
+        }
+      });
+    });
+
+    document.getElementById('confettiBtn').addEventListener('click', startParty);
+  </script>
+
+</body>
+</html>
